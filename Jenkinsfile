@@ -38,17 +38,14 @@ pipeline {
             }
         }
         stage('Deploy') {
-            input{
-                message "Select the environment to deploy"
-                ok "Done"
-                parameters {
-                    choice(name: 'ENV', choices: ['dev', 'staging', 'prod'], description: 'Environment to deploy')
-                }
-            }
             steps {
+                script {
+                    env.ENV = input message: "Select the environment to deploy", parameters: [choice(name: 'ENV', choices: ['dev', 'staging', 'prod'], description: 'Environment to deploy')]
+                }
+
                 echo "Deploying version ${PARAM_BUILD_VERSION}.. to ${ENV} environment"
                 withCredentials([
-                    usernamePassword(credentialsId: 'server-credentials', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')
+                        usernamePassword(credentialsId: 'server-credentials', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')
                 ]) {
                     echo "Deploying to server with ${USERNAME}:${PASSWORD}"
                 }
