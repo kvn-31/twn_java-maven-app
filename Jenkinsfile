@@ -33,7 +33,7 @@ pipeline {
         }
         stage('Deploy') {
             steps {
-                echo 'Deploying version ${PARAM_BUILD_VERSION}..'
+                echo "Deploying version ${PARAM_BUILD_VERSION}.."
                 withCredentials([
                     usernamePassword(credentialsId: 'server-credentials', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')
                 ]) {
