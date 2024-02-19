@@ -12,7 +12,7 @@ pipeline {
 
     parameters {
         string(name: 'BUILD_VERSION', defaultValue: '1.0.0', description: 'Version of the build')
-        booleanParam(name 'executeTests', defaultValue: true, description: 'Execute tests')
+        booleanParam(name: 'executeTests', defaultValue: true, description: 'Execute tests')
     }
 
     stages {
