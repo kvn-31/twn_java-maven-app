@@ -7,6 +7,7 @@ pipeline {
         maven "maven-3.9"
     }
 
+//    will more or less be ignored
     parameters {
         string(name: 'PARAM_BUILD_VERSION', defaultValue: '1.0.0', description: 'Version of the build')
         booleanParam(name: 'executeTests', defaultValue: true, description: 'Execute tests')
