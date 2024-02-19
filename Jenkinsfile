@@ -1,9 +1,7 @@
+def gv
+
 pipeline {
     agent any
-
-    environment {
-        BUILD_VERSION = '1.0.0'
-    }
 
     tools {
         maven "maven-3.9"
@@ -15,10 +13,18 @@ pipeline {
     }
 
     stages {
+        stage('Init') {
+            steps {
+                script {
+                    gv = load "script.groovy"
+                }
+            }
+        }
         stage('Build') {
             steps {
-                echo 'Building..'
-                echo "BUILD_VERSION=${BUILD_VERSION}"
+                script {
+                    gv.buildJar()
+                }
             }
         }
         stage('Test') {
@@ -40,24 +46,6 @@ pipeline {
                     echo "Deploying to server with ${USERNAME}:${PASSWORD}"
                 }
             }
-        }
-    }
-    post {
-        always {
-            echo 'This will always run'
-        }
-        success {
-            echo 'This will run only if successful'
-        }
-        failure {
-            echo 'This will run only if failed'
-        }
-        unstable {
-            echo 'This will run only if the run was marked as unstable'
-        }
-        changed {
-            echo 'This will run only if the state of the Pipeline has changed'
-            echo 'For example, if the Pipeline was previously failing but is now successful'
         }
     }
 }
