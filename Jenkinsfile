@@ -20,34 +20,27 @@ pipeline {
                 }
             }
         }
-        stage('Build') {
+        stage("build jar") {
             steps {
                 script {
                     gv.buildJar()
+
                 }
             }
         }
-        stage('Test') {
-            when {
-                expression {
-                    params.executeTests
-                }
-            }
-            steps {
-                echo 'Testing..'
-            }
-        }
-        stage('Deploy') {
+
+        stage("build image") {
             steps {
                 script {
-                    env.ENV = input message: "Select the environment to deploy", parameters: [choice(name: 'ENV', choices: ['dev', 'staging', 'prod'], description: 'Environment to deploy')]
+                    gv.buildImage()
                 }
+            }
+        }
 
-                echo "Deploying version ${PARAM_BUILD_VERSION}.. to ${ENV} environment"
-                withCredentials([
-                        usernamePassword(credentialsId: 'server-credentials', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')
-                ]) {
-                    echo "Deploying to server with ${USERNAME}:${PASSWORD}"
+        stage("deploy") {
+            steps {
+                script {
+                    gv.deployApp()
                 }
             }
         }
