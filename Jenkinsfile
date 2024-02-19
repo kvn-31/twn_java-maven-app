@@ -3,7 +3,6 @@ pipeline {
 
     environment {
         BUILD_VERSION = '1.0.0'
-        SERVER_CREDENTIALS = credentials('server-credentials')
     }
 
     tools {
@@ -11,7 +10,7 @@ pipeline {
     }
 
     parameters {
-        string(name: 'BUILD_VERSION', defaultValue: '1.0.0', description: 'Version of the build')
+        string(name: 'PARAM_BUILD_VERSION', defaultValue: '1.0.0', description: 'Version of the build')
         booleanParam(name: 'executeTests', defaultValue: true, description: 'Execute tests')
     }
 
@@ -34,7 +33,7 @@ pipeline {
         }
         stage('Deploy') {
             steps {
-                echo 'Deploying....'
+                echo 'Deploying version ${PARAM_BUILD_VERSION}..'
                 withCredentials([
                     usernamePassword(credentialsId: 'server-credentials', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')
                 ]) {
