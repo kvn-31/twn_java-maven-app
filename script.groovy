@@ -1,6 +1,6 @@
 def buildJar() {
     echo 'building the application...'
-    echo "BUILD_VERSION=${PARAM_BUILD_VERSION}"
+//    echo "BUILD_VERSION=${PARAM_BUILD_VERSION}"
     sh 'mvn package'
 }
 
