@@ -37,7 +37,7 @@ pipeline {
         stage("build image") {
             when {
                 expression {
-                    BRANCH_NAME == 'master'
+                    ENV.ENV.BRANCH_NAME == 'master'
                 }
             }
             steps {
@@ -50,7 +50,7 @@ pipeline {
         stage("deploy") {
             when {
                 expression {
-                    BRANCH_NAME == 'master'
+                    ENV.BRANCH_NAME == 'master'
                 }
             }
             steps {
