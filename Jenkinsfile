@@ -29,6 +29,8 @@ pipeline {
             steps {
                 script {
                     buildImage('kvnvna/demo-app:jma-3.0')
+                    dockerLogin()
+                    dockerPush()
                 }
             }
         }
