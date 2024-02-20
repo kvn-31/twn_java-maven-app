@@ -1,3 +1,5 @@
+#!/usr/bin/env groovy
+@Library('jenkins-shared-library')
 def gv
 
 pipeline {
@@ -6,11 +8,6 @@ pipeline {
     tools {
         maven "maven-3.9"
     }
-
-//    parameters {
-//        string(name: 'PARAM_BUILD_VERSION', defaultValue: '1.0.0', description: 'Version of the build')
-//        booleanParam(name: 'executeTests', defaultValue: true, description: 'Execute tests')
-//    }
 
     stages {
         stage('Init') {
@@ -21,38 +18,22 @@ pipeline {
             }
         }
         stage("build jar") {
-            when {
-                expression {
-                    BRANCH_NAME == 'master'
-                }
-            }
             steps {
                 script {
-                    gv.buildJar()
-
+                    buildJar()
                 }
             }
         }
 
         stage("build image") {
-            when {
-                expression {
-                    BRANCH_NAME == 'master'
-                }
-            }
             steps {
                 script {
-                    gv.buildImage()
+                    buildImage()
                 }
             }
         }
 
         stage("deploy") {
-            when {
-                expression {
-                    BRANCH_NAME == 'master'
-                }
-            }
             steps {
                 script {
                     gv.deployApp()
