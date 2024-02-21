@@ -61,7 +61,7 @@ pipeline {
                         sh 'git branch'
                         sh 'git config --list'
 
-                        sh "git remote set-url origin https://${USER}:${PASS}@github.com/kvn-31/twn_java-maven-app.git"
+                        sh "git remote set-url origin https://${PASS}@github.com/kvn-31/twn_java-maven-app.git"
                         sh 'git add pom.xml'
                         sh 'git commit -m "ci: increment app version"'
                         sh 'git push origin HEAD:increment-app-version'
