@@ -5,7 +5,7 @@ This repository contains a simple Java Maven App with a Jenkinsfile that:
 - Creates a Docker image
 - Pushes the Docker image to a private Docker registry
 
-In this project the App version is incremented automatically by the Jenkins pipeline.
+In this branch the App version is incremented automatically by the Jenkins pipeline.
 
 A small part of the Jenkins output showing the commit of the incremented app version:
 ```bash
