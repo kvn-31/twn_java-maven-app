@@ -54,7 +54,9 @@ pipeline {
             steps {
                 script {
                     withCredentials([usernamePassword(credentialsId: 'github-credentials', passwordVariable: 'PASS', usernameVariable: 'USER')]) {
+                        sh 'git remove -v'
                         sh 'git remote remove origin'
+                        sh 'git remote add origin https://github.com/kvn-31/twn_java-maven-app.git'
                         sh 'git config --global user.email "jenkins@example.com"'
                         sh 'git config --global user.name "jenkins"'
 
