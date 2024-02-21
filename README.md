@@ -7,7 +7,7 @@ This repository contains a simple Java Maven App with a Jenkinsfile that:
 
 In this project the App version is incremented automatically by the Jenkins pipeline.
 
-A small part of the Jenkins output:
+A small part of the Jenkins output showing the commit of the incremented app version:
 ```bash
 [Pipeline] sh
 + git add pom.xml
