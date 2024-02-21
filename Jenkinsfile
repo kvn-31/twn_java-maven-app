@@ -1,5 +1,3 @@
-def gv
-
 pipeline {
     agent any
 
@@ -7,24 +5,12 @@ pipeline {
         maven "maven-3.9"
     }
 
-//    parameters {
-//        string(name: 'PARAM_BUILD_VERSION', defaultValue: '1.0.0', description: 'Version of the build')
-//        booleanParam(name: 'executeTests', defaultValue: true, description: 'Execute tests')
-//    }
-
     stages {
-        stage('Init') {
-            steps {
-                script {
-                    gv = load "script.groovy"
-                }
-            }
-        }
         stage("build jar") {
             steps {
                 script {
-                    gv.buildJar()
-
+                    echo 'building the application...'
+                    sh 'mvn package'
                 }
             }
         }
@@ -32,7 +18,12 @@ pipeline {
         stage("build image") {
             steps {
                 script {
-                    gv.buildImage()
+                    echo "building the docker image..."
+                    withCredentials([usernamePassword(credentialsId: 'docker-hub', passwordVariable: 'PASS', usernameVariable: 'USER')]) {
+                        sh 'docker build -t kvnvna/demo-app:jma-2.0 .'
+                        sh 'echo $PASS | docker login -u $USER --password-stdin'
+                        sh 'docker push kvnvna/demo-app:jma-2.0'
+                    }
                 }
             }
         }
@@ -40,7 +31,7 @@ pipeline {
         stage("deploy") {
             steps {
                 script {
-                    gv.deployApp()
+                    echo 'deploying the application...'
                 }
             }
         }
