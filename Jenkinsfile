@@ -13,29 +13,29 @@ pipeline {
 //    }
 
     stages {
-        stage('Init') {
-            steps {
-                script {
-                    gv = load "script.groovy"
-                }
-            }
-        }
-        stage("build jar") {
-            steps {
-                script {
+//        stage('Init') {
+//            steps {
+//                script {
+//                    gv = load "script.groovy"
+//                }
+//            }
+//        }
+//        stage("build jar") {
+//            steps {
+//                script {
 //                    gv.buildJar()
-
-                }
-            }
-        }
-
-        stage("build image") {
-            steps {
-                script {
+//
+//                }
+//            }
+//        }
+//
+//        stage("build image") {
+//            steps {
+//                script {
 //                    gv.buildImage()
-                }
-            }
-        }
+//                }
+//            }
+//        }
 
         stage("deploy") {
             steps {
