@@ -35,7 +35,7 @@ pipeline {
             steps {
                 script {
                     echo 'deploying docker image to EC2...'
-                    def shellCmd = "bash ./server-cmds.sh"
+                    def shellCmd = "bash ./server-cmds.sh ${IMAGE_NAME}"
                     sshagent(['ec2-server-key']) {
                         sh "scp docker-compose.yaml ec2-user@3.79.18.159:/home/ec2-user"
                         sh "scp server-cmds.sh ec2-user@3.79.18.159:/home/ec2-user"
