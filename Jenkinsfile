@@ -23,7 +23,7 @@ pipeline {
         stage("build jar") {
             steps {
                 script {
-                    gv.buildJar()
+//                    gv.buildJar()
 
                 }
             }
@@ -32,7 +32,7 @@ pipeline {
         stage("build image") {
             steps {
                 script {
-                    gv.buildImage()
+//                    gv.buildImage()
                 }
             }
         }
@@ -40,7 +40,10 @@ pipeline {
         stage("deploy") {
             steps {
                 script {
-                    gv.deployApp()
+                    def dockerCmd = 'docker run -d -p 3080:3080 kvnvna/demo-app:rn-1.0'
+                    sshagent(['ec2-server-key']) {
+                        sh "ssh -o StrictHostKeyChecking=no ec2-user@3.79.18.159 ${dockerCmd}"
+                    }
                 }
             }
         }
