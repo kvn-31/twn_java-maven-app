@@ -25,7 +25,7 @@ pipeline {
                     versions:commit'
                     def matcher = readFile('pom.xml') =~ '<version>(.+)</version>'
                     def version = matcher[0][1]
-                    env.IMAGE_NAME = "$version-$BUILD_NUMBER"
+                    env.TAG = "$version-$BUILD_NUMBER"
                 }
             }
         }
@@ -40,9 +40,9 @@ pipeline {
             steps {
                 script {
                     echo 'building the docker image...'
-                    buildImage(env.IMAGE_NAME)
+                    buildImage("${env.IMAGE_NAME}:${env.TAG}")
                     dockerLogin()
-                    dockerPush(env.IMAGE_NAME)
+                    dockerPush("${env.IMAGE_NAME}:${env.TAG}")
                 }
             }
         }
