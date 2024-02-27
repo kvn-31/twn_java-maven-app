@@ -12,7 +12,6 @@ pipeline {
     }
     environment {
         IMAGE_NAME = 'kvnvna/demo-app'
-        TAG = 'java-maven-aws-1.1'
     }
 
     stages {
