@@ -25,6 +25,7 @@ pipeline {
                     versions:commit'
                     def matcher = readFile('pom.xml') =~ '<version>(.+)</version>'
                     def version = matcher[0][1]
+                    echo "new version: $version-$BUILD_NUMBER"
                     env.TAG = "$version-$BUILD_NUMBER"
                 }
             }
