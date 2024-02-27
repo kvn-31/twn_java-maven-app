@@ -16,6 +16,20 @@ pipeline {
     }
 
     stages {
+        stage("increment version") {
+            steps {
+                script {
+                    echo 'incrementing the app version...'
+                    sh 'mvn build-helper:parse-version versions:set \
+                    -DnewVersion=\\\${parsedVersion.majorVersion}.\\\${parsedVersion.minorVersion}.\\\${parsedVersion.nextIncrementalVersion} \
+                    versions:commit'
+                    def matcher = readFile('pom.xml') =~ '<version>(.+)</version>'
+                    def version = matcher[0][1]
+                    env.IMAGE_NAME = "$version-$BUILD_NUMBER"
+                }
+            }
+        }
+
         stage('build app') {
             steps {
                 echo 'building application jar...'
@@ -42,6 +56,22 @@ pipeline {
                         sh "scp docker-compose.yaml ${ec2Instance}:/home/ec2-user"
                         sh "scp server-cmds.sh ${ec2Instance}:/home/ec2-user"
                         sh "ssh -o StrictHostKeyChecking=no ${ec2Instance} ${shellCmd}"
+                    }
+                }
+            }
+        }
+
+        stage("commit version update") {
+            steps {
+                script {
+                    withCredentials([usernamePassword(credentialsId: 'github-access-token-push', passwordVariable: 'PASS', usernameVariable: 'USER')]) {
+                        sh 'git config --global user.email "jenkins@example.com"'
+                        sh 'git config --global user.name "jenkins"'
+
+                        sh "git remote set-url origin https://${USER}:${PASS}@github.com/kvn-31/twn_java-maven-app.git"
+                        sh 'git add pom.xml'
+                        sh 'git commit -m "ci: increment app version"'
+                        sh 'git push origin HEAD:increment-app-version'
                     }
                 }
             }
