@@ -33,3 +33,4 @@ kubectl create secret docker-registry my-registry-key \  #the name of the secret
 ## Branch specific details
 - added kubernetes folder containing a deployment and a service file
 - added deployment step in Jenkinsfile which deploys the app to a k8s cluster
+- confirm the deployment with `kubectl get all` / describe the pods
