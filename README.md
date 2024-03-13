@@ -18,13 +18,15 @@ Have a look at the following branches:
 - `aws-deployment-docker-compose` - deploys the app using Docker Compose; increments the app version on every build and commits the changes back to the repository
 - `deploy-on-k8s` - deploys nginx (for testing purposes) to a k8s cluster in the deploy step
 - `build-and-deploy-k8s` - builds the app and deploys it to a k8s cluster
+- `build-and-deploy-k8s-ecr` - same as above, but uses ECR instead of Docker Hub
 
 ## Prerequisites
 - k8s cluster (in this case aws eks)
-- in order to have this running, we need to authenticate with the cluster
+- ecr repository
+- in order to have this running, we need to authenticate with ECR
 ```bash
-kubectl create secret docker-registry my-registry-key \  #the name of the secret can be anything, but needs to be referenced in the deployment file
-  --docker-server=docker.io \
+kubectl create secret docker-registry aws-registry-key \  #the name of the secret can be anything, but needs to be referenced in the deployment file
+  --docker-server=REPO_URL \
   --docker-username=USER \
   --docker-password=PASSWORD #the password might be needed to be escaped using single quotes
 ```

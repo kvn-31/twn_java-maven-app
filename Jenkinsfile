@@ -5,6 +5,11 @@ pipeline {
         maven "maven-3.9"
     }
 
+    environment {
+        DOCKER_REPO_SERVER = '891377178167.dkr.ecr.eu-central-1.amazonaws.com/java-maven-app'
+        DOCKER_REPO = "${DOCKER_REPO_SERVER}/java-maven-app"
+    }
+
     stages {
         stage("increment version") {
             steps {
@@ -33,10 +38,10 @@ pipeline {
             steps {
                 script {
                     echo "building the docker image with name: ${IMAGE_NAME}..."
-                    withCredentials([usernamePassword(credentialsId: 'docker-hub', passwordVariable: 'PASS', usernameVariable: 'USER')]) {
-                        sh "docker build -t kvnvna/demo-app:${IMAGE_NAME} ."
-                        sh 'echo $PASS | docker login -u $USER --password-stdin'
-                        sh "docker push kvnvna/demo-app:${IMAGE_NAME}"
+                    withCredentials([usernamePassword(credentialsId: 'ecr-credentials', passwordVariable: 'PASS', usernameVariable: 'USER')]) {
+                        sh "docker build -t ${DOCKER_REPO}:${IMAGE_NAME} ."
+                        sh 'echo $PASS | docker login -u $USER --password-stdin ${DOCKER_REPO_SERVER}'
+                        sh "docker push ${DOCKER_REPO}:${IMAGE_NAME}"
                     }
                 }
             }

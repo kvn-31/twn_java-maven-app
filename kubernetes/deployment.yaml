@@ -15,10 +15,10 @@ spec:
         app: $APP_NAME
     spec:
       imagePullSecrets:
-        - name: my-registry-key #name of the secret created in k8s
+        - name: aws-registry-key #name of the secret created in k8s
       containers:
         - name: $APP_NAME
-          image: kvnvna/demo-app:$IMAGE_NAME
+          image: $DOCKER_REPO:$IMAGE_NAME
           imagePullPolicy: Always
           ports:
             - containerPort: 8080
