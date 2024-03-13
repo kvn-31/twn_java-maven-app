@@ -21,7 +21,7 @@ Have a look at the following branches:
 
 ## Prerequisites
 - k8s cluster (in this case aws eks)
-- in order to have this running, we need to authenticate with the cluster
+- in order to have this running, we need to authenticate with Docker Hub
 ```bash
 kubectl create secret docker-registry my-registry-key \  #the name of the secret can be anything, but needs to be referenced in the deployment file
   --docker-server=docker.io \
