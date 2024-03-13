@@ -6,7 +6,7 @@ pipeline {
     }
 
     environment {
-        DOCKER_REPO_SERVER = '891377178167.dkr.ecr.eu-central-1.amazonaws.com/java-maven-app'
+        DOCKER_REPO_SERVER = '891377178167.dkr.ecr.eu-central-1.amazonaws.com'
         DOCKER_REPO = "${DOCKER_REPO_SERVER}/java-maven-app"
     }
 
