@@ -28,7 +28,7 @@ Have a look at the following branches:
 kubectl create secret docker-registry aws-registry-key \  #the name of the secret can be anything, but needs to be referenced in the deployment file
   --docker-server=REPO_URL \
   --docker-username=USER \
-  --docker-password=PASSWORD #the password might be needed to be escaped using single quotes
+  --docker-password=PASSWORD
 ```
 - the step above can also be covered with simple check in the Jenkinsfile (if secret exists skip, if not create)
 
