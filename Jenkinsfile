@@ -34,7 +34,7 @@ pipeline {
             }
         }
 
-        stage("build and push image to docker hub") {
+        stage("build and push image to ecr") {
             steps {
                 script {
                     echo "building the docker image with name: ${IMAGE_NAME}..."
