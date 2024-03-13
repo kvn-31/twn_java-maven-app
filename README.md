@@ -26,7 +26,7 @@ Have a look at the following branches:
 kubectl create secret docker-registry my-registry-key \  #the name of the secret can be anything, but needs to be referenced in the deployment file
   --docker-server=docker.io \
   --docker-username=USER \
-  --docker-password=PASSWORD #the password can be escaped --docker-password=\"'PASSWORD'\"
+  --docker-password=PASSWORD #the password might be needed to be escaped using single quotes
 ```
 - the step above can also be covered with simple check in the Jenkinsfile (if secret exists skip, if not create)
 
