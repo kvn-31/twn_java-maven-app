@@ -15,3 +15,4 @@ Have a look at the following branches:
 - `increment-app-version` - an extension which increments the app version on every build and commits the changes back to the repository
 - `aws-deployment` - an extension which deploys the app on an AWS EC2 instance using ssh
 - `aws-deployment-docker-compose` - deploys the app using Docker Compose; increments the app version on every build and commits the changes back to the repository
+- `deploy-on-k8s` - deploys the app on a Kubernetes cluster using Jenkins
