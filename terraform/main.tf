@@ -91,7 +91,7 @@ resource "aws_instance" "myapp-server" {
   availability_zone      = var.avail_zone
 
   associate_public_ip_address = true #to be able to access it from the internet (browser, ssh)
-  key_name                    = "my-key-pair" #already created in aws
+  key_name                    = "myapp-key-pair" #already created in aws
 
   user_data                   = file("entry-script.sh")
   user_data_replace_on_change = true # -> instance is destroyed and recreated if user_data changes
