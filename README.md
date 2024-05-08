@@ -7,11 +7,13 @@ This repository contains setup using Jenkins that:
 - Builds the app
 - Creates a Docker image
 - Pushes the Docker image to a private Docker registry
+- Integrates Terraform to provision a remote server
+  - Create SSH key pair
+  - Install Terraform inside Jenkins container
+  - create TF config to provision the server
 
-Have a look at the following branches:
+For an overview of the available branches check the README.md of the master branch.
 
-- `master` & `develop` - were used to setup Freestyle & Pipeline Jobs
-- `jenkins-shared-lib` - used to achieve the same setup using a Jenkins Shared Library
-- `increment-app-version` - an extension which increments the app version on every build and commits the changes back to the repository
-- `aws-deployment` - an extension which deploys the app on an AWS EC2 instance using ssh
-- `aws-deployment-docker-compose` - deploys the app using Docker Compose; increments the app version on every build and commits the changes back to the repository
+## Prerequisites
+- create credentials in Jenkins
+- install Terraform inside Jenkins container
