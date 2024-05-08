@@ -25,8 +25,8 @@ pipeline {
             steps {
                 script {
                     echo 'building the docker image...'
-                    buildImage("${env.IMAGE_NAME}")
                     dockerLogin() // docker login on Jenkins Server
+                    buildImage("${env.IMAGE_NAME}")
                     dockerPush("${env.IMAGE_NAME}")
                 }
             }
