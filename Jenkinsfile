@@ -68,7 +68,7 @@ pipeline {
                     echo "${EC2_PUBLIC_IP}"
 
                     //  DOCKER_CREDS_USR and DOCKER_CREDS_PSW are variables that are automatically created by Jenkins (USR & PSW)
-                    def shellCmd = "bash ./server-cmds.sh ${IMAGE_NAME} ${DOCKER_CREDS_USR} ${DOCKER_CREDS_PSW}"
+                    def shellCmd = "bash ./server-cmds.sh ${IMAGE_NAME} ${DOCKER_CREDS_USR} '${DOCKER_CREDS_PSW}'"
                     def ec2Instance = "ec2-user@${EC2_PUBLIC_IP}"
 
                     sshagent(['server-ssh-key']) {
