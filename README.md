@@ -11,6 +11,7 @@ This repository contains setup using Jenkins that:
   - Create SSH key pair
   - Install Terraform inside Jenkins container
   - create TF config to provision the server
+  - use remote state (s3 bucket) for the TF state
 
 For an overview of the available branches check the README.md of the master branch.
 
