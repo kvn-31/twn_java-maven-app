@@ -15,6 +15,15 @@ pipeline {
     }
 
     stages {
+        stage('destroy old tf setup') {
+            steps {
+                script {
+                    dir('terraform') {
+                        sh 'terraform destroy -auto-approve'
+                    }
+                }
+            }
+        }
         stage('build app') {
             steps {
                 echo 'building application jar...'
