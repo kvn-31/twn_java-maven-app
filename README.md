@@ -26,6 +26,7 @@ This time manually created in management console (2 instances)
 - new key-pair
 
 ## Jenkins
+- install the needed plugins such as SSH Pipeline Steps, SSH Agent
 - add the private SSH key that is stored in Digitalocean (public) to Jenkins (credentials - ssh username with private key)
 - add the private key of the ec2 instances to Jenkins (credentials - ssh username with private key)
 - see Java-Maven-App project feature/ansible for more details (such as Jenkinsfile)
