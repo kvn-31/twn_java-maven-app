@@ -7,40 +7,18 @@ pipeline {
         maven "maven-3.9"
     }
 
-//    parameters {
-//        string(name: 'PARAM_BUILD_VERSION', defaultValue: '1.0.0', description: 'Version of the build')
-//        booleanParam(name: 'executeTests', defaultValue: true, description: 'Execute tests')
-//    }
-
     stages {
-        stage('Init') {
+        stage("copy files to ansible server") {
             steps {
                 script {
-                    gv = load "script.groovy"
-                }
-            }
-        }
-        stage("build jar") {
-            steps {
-                script {
-                    gv.buildJar()
+                    echo "copying all necessary files to ansible server..."
+                    sshagent(['ansible-server-key']) {
+                        sh 'scp -o StrictHostKeyChecking=no ansible/* roo@104.248.137.33:/root' // copy all jenkins files to the ansible server
 
-                }
-            }
-        }
-
-        stage("build image") {
-            steps {
-                script {
-                    gv.buildImage()
-                }
-            }
-        }
-
-        stage("deploy") {
-            steps {
-                script {
-                    gv.deployApp()
+                        withCredentials([sshUserPrivateKey(credentialsId: 'ec2-server-key', keyFileVariable: 'keyfile', usernameVariable: 'user')]) {
+                            sh 'scp ${keyfile} root@04.248.137.33:/root/ssh-key.pem' // copy the private ec2 key to the ansible server
+                        }
+                    }
                 }
             }
         }

@@ -1,0 +1,76 @@
+---
+#- name: Wait for SSH connection
+#  hosts: all
+#  gather_facts: False
+#  tasks:
+#    - name: Ensure SSH port open
+#      wait_for:
+#        port: 22
+#        delay: 10
+#        timeout: 100
+#        search_regex: OpenSSH
+#        host: '{{ (ansible_ssh_host|default(ansible_host))|default(inventory_hostname) }}'
+#  vars:
+#    ansible_connection: local
+#    ansible_python_interpreter: /usr/bin/python3
+
+
+- name: Install Docker
+  hosts: all
+  become: yes
+  tasks:
+    - name: Install Docker
+      yum:
+        name: docker
+        update_cache: yes
+        state: present
+    - name: Start docker daemon
+      systemd:
+        name: docker
+        state: started
+
+- name: Create new linux user
+  hosts: all
+  become: yes
+  tasks:
+    - name: Create new linux user
+      user:
+        name: nana
+        groups: adm,docker
+
+- name: Install Docker-compose
+  hosts: all
+  become: yes
+  become_user: nana
+  tasks:
+    - name: Create docker-compose directory
+      file:
+        path: ~/.docker/cli-plugins
+        state: directory
+    - name: Get architecture of remote machine
+      shell: uname -m
+      register: remote_arch
+    - name: Install docker-compose
+      get_url:
+        url: "https://github.com/docker/compose/releases/latest/download/docker-compose-linux-{{ remote_arch.stdout }}"
+        dest: ~/.docker/cli-plugins/docker-compose
+        mode: +x
+
+#- name: Start docker containers
+#  hosts: all
+#  become: yes
+#  become_user: nana
+#  vars_files:
+#    - project-vars
+#  tasks:
+#    - name: Copy docker compose
+#      copy:
+#        src: /Users/nana/bootcamp-java-mysql-project/docker-compose-full.yaml
+#        dest: /home/nana/docker-compose.yaml
+#    - name: Docker login
+#      docker_login:
+#        username: nanatwn
+#        password: "{{docker_password}}"
+#    - name: Start containers from compose
+#      community.docker.docker_compose_v2:
+#        project_src: /home/nana
