@@ -3,6 +3,7 @@ Based on [TWN - Java Maven App - Jenkins Files](https://gitlab.com/twn-devops-bo
 Used for Demo purposes
 
 # Run Ansible from Jenkins pipeline
+In this Project Jenkins will copy Ansible files to a remote Droplet and execute them to create setup docker compose.
 
 ## Droplets
 Two droplets (one for Jenkins, one for Ansible Server) were created
