@@ -9,15 +9,8 @@ This repository contains setup using Jenkins that:
 - Pushes the Docker image to a private Docker registry
 - Deploys the app to a k8s cluster
 
-Have a look at the following branches:
+For an overview of all different branches in this repo have a look at the [master branch readme](https://github.com/kvn-31/twn_java-maven-app)
 
-- `master` & `develop` - were used to setup Freestyle & Pipeline Jobs
-- `jenkins-shared-lib` - used to achieve the same setup using a Jenkins Shared Library
-- `increment-app-version` - an extension which increments the app version on every build and commits the changes back to the repository
-- `aws-deployment` - an extension which deploys the app on an AWS EC2 instance using ssh
-- `aws-deployment-docker-compose` - deploys the app using Docker Compose; increments the app version on every build and commits the changes back to the repository
-- `deploy-on-k8s` - deploys nginx (for testing purposes) to a k8s cluster in the deploy step
-- `build-and-deploy-k8s` - builds the app and deploys it to a k8s cluster
 
 ## Prerequisites
 - k8s cluster (in this case aws eks)
