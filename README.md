@@ -19,3 +19,4 @@ Have a look at the following branches:
 - `deploy-on-k8s` - deploys nginx (for testing purposes) to a k8s cluster in the deploy step
 - `build-and-deploy-k8s` - builds the app and deploys it to a k8s cluster
 - `build-and-deploy-k8s-ecr` - same as above, but uses ECR instead of Docker Hub
+- `feature/ansible` - In this Project Jenkins will copy Ansible files to a remote Droplet and execute them to create setup docker compose.
